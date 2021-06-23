@@ -12,22 +12,39 @@
   </body>
   <footer>
     <script>
+      var width = 1000;
+      var height = 500;
+      var xMargin = 2;
+      var yMargin = 2;
+      var margin = {
+        top: 30,
+        right: 0,
+        bottom: 10,
+        left: 30,
+      };
+      var data ="tcgagtccct".toUpperCase().split("");
       var svg = d3
         .select("svg")
-        .attr("width", 500)
-        .attr("height", 500)
+        .attr("width", width)
+        .attr("height", height)
         .call(
           d3.zoom().on("zoom", function (event, d) {
             svg.attr("transform", event.transform);
           })
         )
         .append("g");
-      var xMargin = 2;
-      var yMargin = 2;
+
+      var x = d3
+        .scaleBand()
+        .domain(d3.range(data.length))
+        .range([margin.left, width - margin.right])
+        .padding(0.1);
+
+
       svg
         .append("g")
         .selectAll("rect")
-        .data("ASDFASDFSADFSADFDSAFDS".split(""))
+        .data(data)
         .join("rect")
         .attr("x", (d, i) => i * (10 + 2 * xMargin) + 10)
         .attr("y", (d) => 20)
@@ -42,9 +59,9 @@
       svg
         .append("g")
         .style("font", "14px sans-serif")
-        .style("fill", "#FFF")
+        .style("fill", "#000")
         .selectAll("text")
-        .data("ASDFASDFSADFSADFDSAFDS".split(""))
+        .data(data)
         .join("text")
         .attr("x", (d, i) => i * (10 + 2 * xMargin) + 10)
         .attr("y", (d) => 22)
