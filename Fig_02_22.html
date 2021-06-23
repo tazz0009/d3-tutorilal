@@ -1,57 +1,60 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>D3 in Action Chapter 1 - Example 3</title>
     <script src="https://d3js.org/d3.v6.js"></script>
-</head>
-<style>
-  svg {
-    height: 500px;
-    width: 500px;
-    border: 1px solid gray;
-  }
-</style>
-<body>
-  <div>
-    <svg>
-    </svg>
-  </div>
-</body>
-<footer>
+  </head>
+  <style>
+    svg {
+      height: 500px;
+      width: 500px;
+      border: 1px solid gray;
+    }
+  </style>
+  <body>
+    <div>
+      <svg></svg>
+    </div>
+  </body>
+  <footer>
     <script>
-    d3.json("tweets.json").then(
-      function(data) {
+      d3.json("tweets.json").then(function (data) {
         console.log(data);
         dataViz(data);
-      }
-    );
+      });
 
-    function dataViz(incomingData) {
-      var nestedTweets = d3.group(incomingData.tweets, function(el) {
-			  return el.user;
-		  });
+      function dataViz(incomingData) {
+        var nestedTweets = d3.group(incomingData.tweets, function (el) {
+          return el.user;
+        });
 
-      var maxTweets = d3.max(nestedTweets, function(k, v) {
-        return k[1].length;
-		  });
-		  
-      var yScale = d3.scaleLinear().domain([ 0, maxTweets ]).range([ 0, 500 ]);
-		  d3.select("svg").selectAll("rect")
-        .data(nestedTweets).enter()
-        .append("rect").attr("width", 50)
-        .attr("height", function(k) {
-			    return yScale(k[1].length);
-		    }).attr("x", function(d, i) {
-			    return i * 60;
-		    }).attr("y", function(k) {
-			    return 500 - yScale(k[1].length);
-		    }).style("fill", "blue")
-        .style("stroke", "red")
-        .style("stroke-width", "1px")
-        .style("opacity", .25);
+        var maxTweets = d3.max(nestedTweets, function (k, v) {
+          return k[1].length;
+        });
+
+        var yScale = d3.scaleLinear().domain([0, maxTweets]).range([0, 500]);
+        d3.select("svg")
+          .selectAll("rect")
+          .data(nestedTweets)
+          .enter()
+          .append("rect")
+          .attr("width", 50)
+          .attr("height", function (k) {
+            return yScale(k[1].length);
+          })
+          .attr("x", function (d, i) {
+            return i * 60;
+          })
+          .attr("y", function (k) {
+            return 500 - yScale(k[1].length);
+          })
+          .style("fill", "blue")
+          .style("stroke", "red")
+          .style("stroke-width", "1px")
+          .style("opacity", 0.25);
       }
     </script>
-</footer>
+  </footer>
 </html>

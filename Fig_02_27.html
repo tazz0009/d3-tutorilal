@@ -1,0 +1,86 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D3 in Action Chapter 1 - Example 3</title>
+    <script src="https://d3js.org/d3.v6.js"></script>
+  </head>
+  <style>
+    svg {
+      height: 500px;
+      width: 500px;
+      border: 1px solid gray;
+    }
+  </style>
+  <body>
+    <div>
+      <svg></svg>
+    </div>
+  </body>
+  <footer>
+    <script>
+      d3.json("tweets.json").then(function (data) {
+        console.log(data);
+        dataViz(data.tweets);
+      });
+
+      function dataViz(incomingData) {
+        incomingData.forEach(function (el) {
+          el.impact = el.favorites.length + el.retweets.length;
+          el.tweetTime = new Date(el.timestamp);
+        });
+
+        var maxImpact = d3.max(incomingData, function (d) {
+          return d.impact;
+        });
+        var startEnd = d3.extent(incomingData, function (d) {
+          return d.tweetTime;
+        });
+        var timeRamp = d3.scaleTime().domain(startEnd).range([50, 450]);
+        var yScale = d3.scaleLinear().domain([0, maxImpact]).range([0, 460]);
+        var radiusScale = d3
+          .scaleLinear()
+          .domain([0, maxImpact])
+          .range([1, 20]);
+
+        // data가 기존의 요소의 수보다 많을 때는
+        // enter 메소드를 이용하고
+        // append를 통해 넘치는 데이터의 수만큼 더 넣어주고
+        d3.select("svg")
+          .selectAll("circle")
+          .data(incomingData, function (d) {
+            return JSON.stringify(d);
+          })
+          .enter()
+          .append("circle")
+          .attr("r", function (d) {
+            return radiusScale(d.impact);
+          })
+          .attr("cx", function (d, i) {
+            return timeRamp(d.tweetTime);
+          })
+          .attr("cy", function (d) {
+            return 480 - yScale(d.impact);
+          })
+          .style("fill", "#990000")
+          .style("stroke", "black")
+          .style("stroke-width", "1px");
+
+        var fillteredData = incomingData.filter(function (d) {
+          return d.impact > 0;
+        });
+
+        // data가 기존의 요소의 수보다 적을 때는
+        // exit 메소드를 이용해서
+        // remove를 통해 부족한 데이터의 수만큼을 지워줍니다.
+        d3.selectAll("circle")
+          .data(fillteredData, function (d) {
+            return JSON.stringify(d);
+          })
+          .exit()
+          .remove();
+      }
+    </script>
+  </footer>
+</html>

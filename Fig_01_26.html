@@ -1,26 +1,33 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>D3 in Action Chapter 1 - Example 3</title>
     <script src="https://d3js.org/d3.v6.js"></script>
-</head>
-<style>
-#vizcontainer {
-  width: 200px;
-  height: 100px;
-  border: 1px gray solid;
-}
-</style>
-<body>
-    <div id="vizcontainer">
-    </div>    
-</body>
-<footer>
+  </head>
+  <style>
+    #vizcontainer {
+      width: 200px;
+      height: 100px;
+      border: 1px gray solid;
+    }
+  </style>
+  <body>
+    <div id="vizcontainer"></div>
+  </body>
+  <footer>
     <script>
       var someData = ["filler", "filler", "filler", "filler"];
-      d3.select("body").selectAll("div").data(someData).enter().append("div").html("Wow").append("span").html("Even More Wow").style("font-weight", "900");
+      d3.select("body")
+        .selectAll("div")
+        .data(someData)
+        .enter()
+        .append("div")
+        .html("Wow")
+        .append("span")
+        .html("Even More Wow")
+        .style("font-weight", "900");
     </script>
-</footer>
+  </footer>
 </html>

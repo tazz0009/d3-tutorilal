@@ -1,33 +1,34 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>D3 in Action Chapter 1 - Example 3</title>
     <script src="https://d3js.org/d3.v6.js"></script>
-</head>
-<style>
-</style>
-<body>
-  <div></div>
-</body>
-<footer>
+  </head>
+  <style></style>
+  <body>
+    <div></div>
+  </body>
+  <footer>
     <script>
-      d3.csv('cities.csv', function(error, data) {
+      d3.csv("cities.csv", function (error, data) {
         dataViz(data);
       });
-      
+
       function dataViz(incomingData) {
         console.log(incomingData);
-        d3.select('body').selectAll('div.cities')
-          .data(incomingData).enter()
-          .append('div')
-          .attr('class', 'cities')
-          .html(function(d, i) {
-            console.log(d, ' , ', i);
-            return d.label
+        d3.select("body")
+          .selectAll("div.cities")
+          .data(incomingData)
+          .enter()
+          .append("div")
+          .attr("class", "cities")
+          .html(function (d, i) {
+            console.log(d, " , ", i);
+            return d.label;
           });
       }
     </script>
-</footer>
+  </footer>
 </html>

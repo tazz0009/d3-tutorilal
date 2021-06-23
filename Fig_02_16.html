@@ -1,38 +1,44 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>D3 in Action Chapter 1 - Example 3</title>
     <script src="https://d3js.org/d3.v6.js"></script>
-</head>
-<style>
-  svg {
-    height: 500px;
-    width: 500px;
-    border: 1px solid gray;
-  }
-</style>
-<body>
-  <div>
-    <svg>
-    </svg>
-  </div>
-</body>
-<footer>
+  </head>
+  <style>
+    svg {
+      height: 500px;
+      width: 500px;
+      border: 1px solid gray;
+    }
+  </style>
+  <body>
+    <div>
+      <svg></svg>
+    </div>
+  </body>
+  <footer>
     <script>
-    d3.select('svg').selectAll('rect')
-      .data([14, 68, 24500, 430, 19, 1000, 5555])
-      .enter()
-      .append('rect')
-      .attr("width", 10)
-      .attr("height", function(d) {return d})
-      .style("fill", "blue")
-      .style("stroke", "red")
-      .style("stroke-width", "1px")
-      .style("opacity", .25)
-      .attr("x", function(d,i) {return i * 10})
-      .attr("y", function(d) {return 100 - d})
+      d3.select("svg")
+        .selectAll("rect")
+        .data([14, 68, 24500, 430, 19, 1000, 5555])
+        .enter()
+        .append("rect")
+        .attr("width", 10)
+        .attr("height", function (d) {
+          return d;
+        })
+        .style("fill", "blue")
+        .style("stroke", "red")
+        .style("stroke-width", "1px")
+        .style("opacity", 0.25)
+        .attr("x", function (d, i) {
+          return i * 10;
+        })
+        .attr("y", function (d) {
+          return 100 - d;
+        });
     </script>
-</footer>
+  </footer>
 </html>

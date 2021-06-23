@@ -1,0 +1,54 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D3 in Action Chapter 1 - Example 3</title>
+    <script src="https://d3js.org/d3.v6.js"></script>
+  </head>
+  <style></style>
+  <body>
+    <svg></svg>
+  </body>
+  <footer>
+    <script>
+      var svg = d3
+        .select("svg")
+        .attr("width", 500)
+        .attr("height", 500)
+        .call(
+          d3.zoom().on("zoom", function (event, d) {
+            svg.attr("transform", event.transform);
+          })
+        )
+        .append("g");
+      var xMargin = 2;
+      var yMargin = 2;
+      svg
+        .append("g")
+        .selectAll("rect")
+        .data("ASDFASDFSADFSADFDSAFDS".split(""))
+        .join("rect")
+        .attr("x", (d, i) => i * (10 + 2 * xMargin) + 10)
+        .attr("y", (d) => 20)
+        .style("fill", "black")
+        .style("stroke", "white")
+        .style("opacity", "0.3")
+        .attr("width", (d) => 10 + 2 * xMargin)
+        .attr("height", (d) => 10 + 2 * yMargin)
+        .attr("transform", function (d) {
+          return `translate(-${xMargin}, -${10 * 0.8 + yMargin})`;
+        });
+      svg
+        .append("g")
+        .style("font", "14px sans-serif")
+        .style("fill", "#FFF")
+        .selectAll("text")
+        .data("ASDFASDFSADFSADFDSAFDS".split(""))
+        .join("text")
+        .attr("x", (d, i) => i * (10 + 2 * xMargin) + 10)
+        .attr("y", (d) => 22)
+        .text((d) => d);
+    </script>
+  </footer>
+</html>
